@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import db from "@/db/db";
 import { formatCurrency, formatNumber } from "@/lib/formatters";
 import { useState } from "react";
@@ -25,6 +25,7 @@ async function getSalesData() {
         // Count the number of orders.
         _count: true
     })
+
     // Destructure the array to get the values.
     return {
         // The sum of order prices in dollars (divide by 100 to get dollars).
@@ -116,9 +117,11 @@ type DashboardCardProps = {
 function DashboardCard({ title, subtitle, body }: DashboardCardProps) {
     return (
         <Card>
-            <CardHeader>{title}</CardHeader>
-            <CardDescription>{subtitle}</CardDescription>
-
+            <CardHeader>
+                <CardTitle>{title}</CardTitle>
+                <CardDescription>{subtitle}</CardDescription>
+            </CardHeader>
+            
             <CardContent>
                 <p>{body}</p>
             </CardContent>
