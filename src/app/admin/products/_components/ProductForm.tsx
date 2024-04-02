@@ -6,12 +6,13 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { formatCurrency } from "@/lib/formatters"
 import { useState } from "react"
-import { addProduct } from "../../_actions/products"
+import { addProduct, updateProduct } from "../../_actions/products"
 import { useFormState, useFormStatus } from "react-dom"
 import { Product } from "@prisma/client"
+import Image from "next/image"
 
 export function ProductForm({ product }: { product?: Product | null }) {
-    const [error, action] = useFormState(addProduct, {})
+    const [error, action] = useFormState(product == null ? addProduct : updateProduct.bind(null,product.id), {})
     const [priceInCents, setPriceInCents] = useState<number | undefined>(product?.priceInCents)
     return (
         <form action={action} className="space-y-8">
@@ -51,6 +52,7 @@ export function ProductForm({ product }: { product?: Product | null }) {
             <div className="space-y-2">
                 <Label htmlFor="image">Image</Label>
                 <Input type="file" id="image" name="image" required={product == null} />
+                {product != null && <Image src={product.imagePath} alt={product.name} height={400} width={400}/>}
                 {error.image && <p className="text-destructive">{error.image}</p>}
             </div>
 
