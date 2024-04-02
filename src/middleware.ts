@@ -22,7 +22,7 @@ async function isAuthenticated(req: NextRequest) {
 
     await isValidPassword(password, "sdsds")
 
-    return username === process.env.ADMIN_USERNAME && (await isValidPassword(password, process.env.HASHED_ADMIN_PASSWORD as string))
+    return username === process.env.ADMIN_USERNAME && (await isValidPassword(password, process.env.ADMIN_HASHED_PASSWORD as string))
 }
 
 export const config = {
