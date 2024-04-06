@@ -108,7 +108,7 @@ export async function deleteProduct(id: string) {
     const product = await db.product.delete({ where: { id } })
     if (product == null) return notFound()
     // redirect("/admin/products")
-    revalidatePath('/')
-    revalidatePath('/products')
+    // revalidatePath('/')
+    // revalidatePath('/products') 
     await fs.unlink(`public${product.filePath}`)
 } 
